@@ -6,6 +6,7 @@ const double m5 = 5.0;
 const double m10 = 10.0;
 const double m15 = 15.0;
 const double m20 = 20.0;
+const double m25 = 25.0;
 const double m30 = 30.0;
 const double m40 = 40.0;
 
@@ -13,6 +14,7 @@ const double p5 = 5.0;
 const double p10 = 10.0;
 const double p15 = 15.0;
 const double p20 = 20.0;
+const double p25 = 25.0;
 const double p30 = 30.0;
 const double p40 = 40.0;
 

@@ -34,16 +34,12 @@ const TextStyle sCallout = TextStyle(
 const TextStyle sSubhead = TextStyle(
   fontSize: 15,
 );
-//
-// const TextStyle sFootnote = TextStyle(
-//   fontSize: 13,
-//   color: Colors.grey,
-// );
-//
+const TextStyle sFootnote = TextStyle(
+  fontSize: 12,
+);
 const TextStyle sCaption1 = TextStyle(
   fontSize: 11,
 );
-
 const TextStyle sCaption2 = TextStyle(
   fontSize: 10,
 );

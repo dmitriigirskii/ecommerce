@@ -14,7 +14,7 @@ class CustomSliverAppBar extends StatelessWidget {
       backgroundColor: Colors.transparent,
       centerTitle: true,
       title: InkWell(
-        splashColor: Colors.transparent,
+        // splashColor: Colors.transparent,
         highlightColor: Colors.transparent,
         onTap: () {},
         child: Row(

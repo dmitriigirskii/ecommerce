@@ -1,4 +1,5 @@
 import 'package:ecommerce/features/sales/bloc/sale_bloc.dart';
+import 'package:ecommerce/features/search/view/search.dart';
 import 'package:ecommerce/features/seller/bloc/seller_bloc.dart';
 import 'package:ecommerce/features/seller/service/seller.dart';
 import 'package:ecommerce/ui/widgets/navigation_bar.dart';
@@ -40,6 +41,9 @@ class MainScreenView extends StatelessWidget {
           delegate: SliverChildListDelegate([
             // Categories
             const TitleWidget(title: 'Select Category', label: 'view all'),
+
+            // Search
+            const Search(),
 
             // Hot Sales
             const TitleWidget(title: 'Hot Sales', label: 'see more'),

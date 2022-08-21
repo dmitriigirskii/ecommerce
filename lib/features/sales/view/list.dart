@@ -1,5 +1,6 @@
 import 'package:ecommerce/features/sales/bloc/sale_bloc.dart';
 import 'package:ecommerce/features/sales/view/card.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,7 +25,7 @@ class SalesList extends StatelessWidget {
             return SalesListView(sales: state.sales);
 
           default:
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: CupertinoActivityIndicator(radius: i14));
         }
       },
     );
