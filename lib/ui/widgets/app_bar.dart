@@ -32,12 +32,12 @@ class CustomSliverAppBar extends StatelessWidget {
               width: i14,
               height: i14,
             ),
-            SizedBox(width: m10),
+            const SizedBox(width: m10),
             Text(
               'Zihuatanejo, Gro',
               style: sSubhead.copyWith(color: cDarkBlue),
             ),
-            SizedBox(width: m10),
+            const SizedBox(width: m10),
             SvgPicture.asset(
               'assets/icons/arrow_down.svg',
               color: cLight2,

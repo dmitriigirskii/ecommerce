@@ -22,6 +22,7 @@ const double p45 = 45.0;
 
 const i10 = 10.0;
 const i14 = 14.0;
+const i18 = 18.0;
 
 const r5 = 5.0;
 const r10 = 10.0;

@@ -1,9 +1,9 @@
 import 'package:ecommerce/features/category/cubit/category_cubit.dart';
+import 'package:ecommerce/features/navigation/view/navigation_bar.dart';
 import 'package:ecommerce/features/sales/bloc/sale_bloc.dart';
 import 'package:ecommerce/features/search/view/search.dart';
 import 'package:ecommerce/features/seller/bloc/seller_bloc.dart';
 import 'package:ecommerce/features/seller/service/seller.dart';
-import 'package:ecommerce/ui/widgets/navigation_bar.dart';
 import 'package:ecommerce/ui/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
