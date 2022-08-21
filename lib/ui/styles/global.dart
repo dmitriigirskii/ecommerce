@@ -19,6 +19,7 @@ const double p40 = 40.0;
 const i10 = 10.0;
 const i14 = 14.0;
 
+const r5 = 5.0;
 const r10 = 10.0;
 const r30 = 30.0;
 
