@@ -1,3 +1,4 @@
+import 'package:ecommerce/features/category/cubit/category_cubit.dart';
 import 'package:ecommerce/features/sales/bloc/sale_bloc.dart';
 import 'package:ecommerce/features/search/view/search.dart';
 import 'package:ecommerce/features/seller/bloc/seller_bloc.dart';
@@ -7,6 +8,7 @@ import 'package:ecommerce/ui/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../features/category/view/list.dart';
 import '../../features/sales/service/sale.dart';
 import '../../features/sales/view/list.dart';
 import '../../features/seller/view/list.dart';
@@ -18,6 +20,9 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(providers: [
+      BlocProvider(
+        create: (_) => CategoryCubit(),
+      ),
       BlocProvider(
         create: (_) => SaleBloc(saleService: SaleService())..add(SaleEvent()),
       ),
@@ -41,6 +46,7 @@ class MainScreenView extends StatelessWidget {
           delegate: SliverChildListDelegate([
             // Categories
             const TitleWidget(title: 'Select Category', label: 'view all'),
+            const CategoryList(),
 
             // Search
             const Search(),
