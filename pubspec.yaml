@@ -35,6 +35,7 @@ flutter:
   assets:
     - .env
     - assets/
+    - assets/icons/
 
   fonts:
     - family: Mark Pro
