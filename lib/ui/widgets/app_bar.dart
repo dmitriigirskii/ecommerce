@@ -1,11 +1,10 @@
-import 'package:ecommerce/features/filter/cubit/filter_cubit.dart';
 import 'package:ecommerce/ui/styles/colors.dart';
 import 'package:ecommerce/ui/styles/global.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../features/filter/view/filter.dart';
 import '../styles/typography.dart';
 
 class CustomSliverAppBar extends StatelessWidget {
@@ -13,21 +12,6 @@ class CustomSliverAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => FilterCubit(),
-      child: const CustomSliverAppBarView(),
-    );
-  }
-}
-
-class CustomSliverAppBarView extends StatelessWidget {
-  const CustomSliverAppBarView({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final FilterCubit filterCubit =
-        BlocProvider.of<FilterCubit>(context, listen: true);
-
     return SliverAppBar(
       systemOverlayStyle: const SystemUiOverlayStyle(
         statusBarColor: Colors.black,
@@ -71,13 +55,21 @@ class CustomSliverAppBarView extends StatelessWidget {
               IconButton(
                 splashColor: Colors.transparent,
                 highlightColor: Colors.transparent,
+                onPressed: () {
+                  showModalBottomSheet(
+                    barrierColor: Colors.transparent,
+                    context: context,
+                    builder: (context) {
+                      return const FilterView();
+                    },
+                  );
+                },
                 icon: SvgPicture.asset(
                   'assets/icons/filter.svg',
                   color: cDarkBlue,
                   width: i14,
                   height: i14,
                 ),
-                onPressed: () => filterCubit.toggle(),
               ),
             ],
           ),

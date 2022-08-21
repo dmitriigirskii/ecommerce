@@ -18,10 +18,9 @@ const TextStyle sTitle1 = TextStyle(
 //   fontSize: 20,
 // );
 //
-// const TextStyle sHeadline = TextStyle(
-//   fontSize: 17,
-//   fontWeight: FontWeight.bold,
-// );
+const TextStyle sHeadline = TextStyle(
+  fontSize: 18,
+);
 //
 // const TextStyle sBody = TextStyle(
 //   fontSize: 17,
