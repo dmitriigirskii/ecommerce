@@ -1,4 +1,6 @@
 import 'package:ecommerce/features/sales/bloc/sale_bloc.dart';
+import 'package:ecommerce/features/seller/bloc/seller_bloc.dart';
+import 'package:ecommerce/features/seller/service/seller.dart';
 import 'package:ecommerce/ui/widgets/navigation_bar.dart';
 import 'package:ecommerce/ui/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +19,10 @@ class MainScreen extends StatelessWidget {
     return MultiBlocProvider(providers: [
       BlocProvider(
         create: (_) => SaleBloc(saleService: SaleService())..add(SaleEvent()),
+      ),
+      BlocProvider(
+        create: (_) =>
+            SellerBloc(sellerService: SellerService())..add(SellerEvent()),
       ),
     ], child: const MainScreenView());
   }

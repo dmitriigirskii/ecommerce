@@ -1,11 +1,15 @@
+import 'package:ecommerce/features/seller/models/seller.dart';
 import 'package:ecommerce/ui/styles/colors.dart';
 import 'package:ecommerce/ui/styles/typography.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../ui/styles/global.dart';
 
 class SellerCard extends StatelessWidget {
-  const SellerCard({Key? key}) : super(key: key);
+  const SellerCard({Key? key, required this.seller}) : super(key: key);
+
+  final Seller seller;
 
   @override
   Widget build(BuildContext context) {
@@ -19,47 +23,81 @@ class SellerCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(r10),
         boxShadow: boxShadow2,
       ),
-      child: Column(
+      child: Stack(
         children: [
-          Image.network(
-            'https://shop.gadgetufa.ru/images/upload/52534-smartfon-samsung-galaxy-s20-ultra-12-128-chernyj_1024.jpg',
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: p20, right: p20, bottom: p15),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+          Column(
+            children: [
+              Image.network(
+                seller.picture,
+                height: 168,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: p20,
+                  right: p20,
+                  bottom: p15,
+                  top: p5,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      '\$1,047',
-                      style: sCallout.copyWith(
-                        color: cDarkBlue,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          seller.price_without_discount.toString(),
+                          style: sCallout.copyWith(
+                            color: cDarkBlue,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(width: m10),
+                        Text(
+                          seller.discount_price.toString(),
+                          style: sCaption2.copyWith(
+                            color: cLight3,
+                            fontWeight: FontWeight.w500,
+                            decoration: TextDecoration.lineThrough,
+                          ),
+                        ),
+                      ],
                     ),
-                    const SizedBox(width: m10),
+                    const SizedBox(height: m5),
                     Text(
-                      '\$1,500',
-                      style: sCaption2.copyWith(
-                        color: cLight3,
-                        fontWeight: FontWeight.w500,
-                        decoration: TextDecoration.lineThrough,
-                      ),
+                      seller.title,
+                      style: sCaption2,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ],
                 ),
-                const SizedBox(height: m5),
-                const Text(
-                  'Samsung Galaxy s20 Ultra',
-                  style: sCaption2,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+              )
+            ],
+          ),
+
+          // Fovorite Button
+          Positioned(
+            top: m10,
+            right: m15,
+            child: Container(
+              width: 25,
+              height: 25,
+              decoration: BoxDecoration(
+                color: cWhite,
+                shape: BoxShape.circle,
+                boxShadow: boxShadow1,
+              ),
+              child: Center(
+                child: SvgPicture.asset(
+                  seller.is_favorites == true
+                      ? 'assets/icons/favorite_fill.svg'
+                      : 'assets/icons/favorite_outline.svg',
+                  width: i10,
+                  height: i10,
                 ),
-              ],
+              ),
             ),
-          )
+          ),
         ],
       ),
     );
