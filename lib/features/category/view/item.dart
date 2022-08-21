@@ -31,15 +31,14 @@ class CategoryItem extends StatelessWidget {
             width: 71,
             height: 71,
             decoration: BoxDecoration(
-              color: cWhite,
+              color: categoryCubit.category == category.id ? cOrange : cWhite,
               shape: BoxShape.circle,
               boxShadow: boxShadow2,
             ),
             child: Center(
               child: SvgPicture.asset(
                 'assets/icons/${category.icon}.svg',
-                color:
-                    categoryCubit.category == category.id ? cOrange : cLight2,
+                color: categoryCubit.category == category.id ? cWhite : cLight2,
                 height: 30,
                 width: 30,
               ),
