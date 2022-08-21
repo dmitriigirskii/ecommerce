@@ -14,8 +14,8 @@ class WrapperScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final pages = [
       const MainScreen(),
-      const FavoriteScreen(),
       const CartScreen(),
+      const FavoriteScreen(),
       const ProfileScreen(),
     ];
 

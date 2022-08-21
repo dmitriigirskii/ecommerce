@@ -1,3 +1,4 @@
+import 'package:ecommerce/features/filter/view/list.dart';
 import 'package:ecommerce/ui/styles/colors.dart';
 import 'package:ecommerce/ui/styles/global.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,7 @@ class FilterView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       constraints: BoxConstraints(
-        maxHeight: 335,
+        maxHeight: 412,
       ),
       padding: const EdgeInsets.symmetric(horizontal: p25, vertical: p45),
       decoration: BoxDecoration(
@@ -21,6 +22,7 @@ class FilterView extends StatelessWidget {
         boxShadow: boxShadow3,
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
             height: 37,
@@ -87,7 +89,9 @@ class FilterView extends StatelessWidget {
                 ),
               ],
             ),
-          )
+          ),
+          const SizedBox(height: m45),
+          const FilterList(),
         ],
       ),
     );
