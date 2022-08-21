@@ -1,6 +1,7 @@
 import 'package:ecommerce/ui/styles/colors.dart';
 import 'package:ecommerce/ui/styles/global.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../styles/typography.dart';
@@ -11,6 +12,10 @@ class CustomSliverAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
+      systemOverlayStyle: const SystemUiOverlayStyle(
+        statusBarColor: Colors.black, // Android
+        statusBarBrightness: Brightness.light, // For iOS (dark icons)
+      ),
       backgroundColor: Colors.transparent,
       centerTitle: true,
       title: InkWell(

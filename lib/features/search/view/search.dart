@@ -82,18 +82,20 @@ class _SearchState extends State<Search> {
             ),
           ),
           const SizedBox(width: m20),
-          Container(
-            width: 34,
-            height: 34,
-            decoration: BoxDecoration(
-              color: cOrange,
-              shape: BoxShape.circle,
-            ),
-            child: Center(
-              child: SvgPicture.asset(
-                'assets/icons/qr.svg',
-                width: i14,
-                height: i14,
+          InkWell(
+            child: Container(
+              width: 34,
+              height: 34,
+              decoration: BoxDecoration(
+                color: cOrange,
+                shape: BoxShape.circle,
+              ),
+              child: Center(
+                child: SvgPicture.asset(
+                  'assets/icons/qr.svg',
+                  width: i14,
+                  height: i14,
+                ),
               ),
             ),
           ),
