@@ -354,30 +354,33 @@ class _ProductDetailViewState extends State<ProductDetailView> {
               horizontal: p30,
               vertical: p30,
             ),
-            child: Container(
-              height: 54,
-              decoration: BoxDecoration(
-                color: cOrange,
-                borderRadius: BorderRadius.circular(r10),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    'Add to Cart',
-                    style: sTitle3.copyWith(
-                      color: cWhite,
-                      fontWeight: FontWeight.w700,
+            child: GestureDetector(
+              onTap: () {},
+              child: Container(
+                height: 54,
+                decoration: BoxDecoration(
+                  color: cOrange,
+                  borderRadius: BorderRadius.circular(r10),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(
+                      'Add to Cart',
+                      style: sTitle3.copyWith(
+                        color: cWhite,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
-                  ),
-                  Text(
-                    '\$${product.price}',
-                    style: sTitle3.copyWith(
-                      color: cWhite,
-                      fontWeight: FontWeight.w700,
+                    Text(
+                      '\$${product.price}',
+                      style: sTitle3.copyWith(
+                        color: cWhite,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
