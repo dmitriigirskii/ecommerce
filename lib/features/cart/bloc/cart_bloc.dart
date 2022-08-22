@@ -16,6 +16,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     on<CartEventRemove>(_onRemoveOne);
     on<CartEventMinus>(_onMinusOne);
     on<CartEventPlus>(_onPlusOne);
+    on<CartEventAdd>(_onAddOne);
   }
 
   Future<void> _onFindOne(
@@ -148,6 +149,49 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     }
   }
 
+  Future<void> _onAddOne(
+    CartEventAdd event,
+    Emitter<CartState> emit,
+  ) async {
+    try {
+      final List<Basket> baskets = [...state.cart!.basket];
+
+      if (_findOne(state.cart!, event.basket)) {
+        baskets.firstWhere((element) => element.id == event.basket.id);
+
+        Basket currentBasket = baskets.firstWhere(
+          (element) => element.id == event.basket.id,
+        );
+
+        state.cart!.basket.asMap().map((i, element) {
+          if (element.id == currentBasket.id) {
+            baskets[i] = currentBasket.copyWith(
+              quantity: currentBasket.quantity + 1,
+            );
+          }
+          return MapEntry(i, element);
+        });
+      } else {
+        baskets.add(event.basket);
+      }
+
+      emit(state.copyWith(
+        cart: state.cart!.copyWith(
+          basket: baskets,
+        ),
+      ));
+
+      emit(state.copyWith(
+        cart: state.cart?.copyWith(
+          total: _totalPrice(state.cart!),
+          count: _totalCount(state.cart!),
+        ),
+      ));
+    } catch (_) {
+      emit(state.copyWith(status: CartStatus.failure));
+    }
+  }
+
   // Total Price
   int _totalPrice(Cart cart) {
     int total = 0;
@@ -171,9 +215,9 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   }
 
   // Find product in cart
-  bool _findOne(Cart cart, Basket product) {
+  bool _findOne(Cart cart, Basket basket) {
     try {
-      cart.basket.firstWhere((element) => element.id == product.id);
+      cart.basket.firstWhere((element) => element.id == basket.id);
       return true;
     } catch (_) {
       return false;

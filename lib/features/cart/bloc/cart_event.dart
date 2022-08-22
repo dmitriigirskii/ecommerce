@@ -24,3 +24,9 @@ class CartEventPlus extends CartEvent {
 
   CartEventPlus({required this.basket});
 }
+
+class CartEventAdd extends CartEvent {
+  final Basket basket;
+
+  CartEventAdd({required this.basket});
+}

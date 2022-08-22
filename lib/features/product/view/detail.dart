@@ -1,3 +1,4 @@
+import 'package:ecommerce/features/cart/models/basket.dart';
 import 'package:ecommerce/features/product/bloc/product_bloc.dart';
 import 'package:ecommerce/features/product/service/product.dart';
 import 'package:ecommerce/ui/styles/colors.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../ui/styles/global.dart';
 import '../../../ui/styles/typography.dart';
+import '../../cart/bloc/cart_bloc.dart';
 import '../models/product.dart';
 import 'app_bar.dart';
 
@@ -365,7 +367,21 @@ class _ProductDetailViewState extends State<ProductDetailView> {
               vertical: p30,
             ),
             child: GestureDetector(
-              onTap: () {},
+              onTap: () {
+                context.read<CartBloc>().add(
+                      CartEventAdd(
+                        basket: Basket(
+                          title: product.title,
+                          images: product.images[0],
+                          price: product.price,
+                          id: 999,
+                          quantity: 1,
+                        ),
+                      ),
+                    );
+
+                Navigator.pushNamed(context, '/cart');
+              },
               child: Container(
                 height: 54,
                 decoration: BoxDecoration(
@@ -515,6 +531,10 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                     ),
                     if (widget.product.color[index] == selectColor)
                       Positioned(
+                        top: 0,
+                        right: 0,
+                        bottom: 0,
+                        left: 0,
                         child: Center(
                           child: SvgPicture.asset(
                             'assets/icons/check.svg',
@@ -522,10 +542,6 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                             height: i14,
                           ),
                         ),
-                        top: 0,
-                        right: 0,
-                        bottom: 0,
-                        left: 0,
                       ),
                   ],
                 ),
