@@ -47,7 +47,8 @@ class CustomNavigationBar extends StatelessWidget {
                     BlocConsumer<CartBloc, CartState>(
                         listener: (context, state) {},
                         builder: (context, state) {
-                          if (state.cart?.basket.length != null) {
+                          if (state.cart?.basket.length != null &&
+                              state.cart!.basket.isNotEmpty) {
                             return Positioned(
                               top: -8,
                               right: -8,

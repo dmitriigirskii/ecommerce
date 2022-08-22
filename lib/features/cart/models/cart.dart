@@ -5,10 +5,7 @@ import 'basket.dart';
 part 'cart.freezed.dart';
 part 'cart.g.dart';
 
-@Freezed(
-  copyWith: false,
-  equal: false,
-)
+@Freezed()
 class Cart with _$Cart {
   @JsonSerializable(explicitToJson: true)
   const factory Cart({

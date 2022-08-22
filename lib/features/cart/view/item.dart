@@ -1,4 +1,6 @@
+import 'package:ecommerce/features/cart/bloc/cart_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../ui/styles/colors.dart';
@@ -75,7 +77,7 @@ class CartItem extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '2',
+                    item.quantity.toString(),
                     style: sTitle3.copyWith(
                       color: cWhite,
                       fontWeight: FontWeight.w700,
@@ -94,7 +96,9 @@ class CartItem extends StatelessWidget {
             ),
             const SizedBox(width: m20),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                context.read<CartBloc>().add(CartEventRemove(basket: item));
+              },
               child: SvgPicture.asset(
                 'assets/icons/trash.svg',
                 color: Color(0xFF36364D),

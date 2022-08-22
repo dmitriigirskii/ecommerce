@@ -70,19 +70,26 @@ class CartScreenView extends StatelessWidget {
                     topRight: Radius.circular(r30),
                   ),
                 ),
-                child: ListView.separated(
-                  padding: EdgeInsets.only(top: p25 + p40, bottom: p25),
-                  shrinkWrap: true,
-                  separatorBuilder: (BuildContext context, int index) {
-                    return const SizedBox(height: m30);
-                  },
-                  itemCount: cart.basket.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return CartItem(
-                      item: cart.basket[index],
-                    );
-                  },
-                ),
+                child: cart.basket.isNotEmpty
+                    ? ListView.separated(
+                        padding: EdgeInsets.only(top: p25 + p40, bottom: p25),
+                        shrinkWrap: true,
+                        separatorBuilder: (BuildContext context, int index) {
+                          return const SizedBox(height: m30);
+                        },
+                        itemCount: cart.basket.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return CartItem(
+                            item: cart.basket[index],
+                          );
+                        },
+                      )
+                    : Center(
+                        child: Text(
+                          'No items in cart',
+                          style: sCallout.copyWith(color: cWhite),
+                        ),
+                      ),
               ),
             ),
           ]),

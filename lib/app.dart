@@ -20,7 +20,8 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => TabsCubit()),
         BlocProvider(
-          create: (_) => CartBloc(cartService: CartService())..add(CartEvent()),
+          create: (_) =>
+              CartBloc(cartService: CartService())..add(CartEventLoad()),
         ),
       ],
       child: MaterialApp(
