@@ -27,6 +27,7 @@ const i28 = 28.0;
 
 const r5 = 5.0;
 const r10 = 10.0;
+const r20 = 20.0;
 const r30 = 30.0;
 
 final boxShadow1 = [
