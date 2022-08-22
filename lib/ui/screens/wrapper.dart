@@ -1,11 +1,13 @@
+import 'package:ecommerce/features/cart/bloc/cart_bloc.dart';
+import 'package:ecommerce/features/cart/service/cart.dart';
 import 'package:ecommerce/ui/screens/favorite.dart';
 import 'package:ecommerce/ui/screens/main.dart';
 import 'package:ecommerce/ui/screens/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../features/cart/view/cart.dart';
 import '../../features/navigation/cubit/tabs_cubit.dart';
-import 'cart.dart';
 
 class WrapperScreen extends StatelessWidget {
   const WrapperScreen({Key? key}) : super(key: key);
@@ -19,8 +21,13 @@ class WrapperScreen extends StatelessWidget {
       const ProfileScreen(),
     ];
 
-    return BlocProvider(
-      create: (_) => TabsCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => TabsCubit()),
+        BlocProvider(
+          create: (_) => CartBloc(cartService: CartService())..add(CartEvent()),
+        ),
+      ],
       child: BlocBuilder<TabsCubit, TabsState>(
         builder: (context, state) {
           if (state is TabsInitial) {
