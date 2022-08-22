@@ -10,28 +10,23 @@ const TextStyle sTitle1 = TextStyle(
   fontWeight: FontWeight.w700,
 );
 //
-// const TextStyle sTitle2 = TextStyle(
-//   fontSize: 22,
-// );
-//
-// const TextStyle sTitle3 = TextStyle(
-//   fontSize: 20,
-// );
-//
+const TextStyle sTitle2 = TextStyle(
+  fontSize: 24,
+);
+const TextStyle sTitle3 = TextStyle(
+  fontSize: 20,
+);
 const TextStyle sHeadline = TextStyle(
   fontSize: 18,
 );
-//
-// const TextStyle sBody = TextStyle(
-//   fontSize: 17,
-// );
-//
 const TextStyle sCallout = TextStyle(
   fontSize: 16,
 );
-
 const TextStyle sSubhead = TextStyle(
   fontSize: 15,
+);
+const TextStyle sBody = TextStyle(
+  fontSize: 13,
 );
 const TextStyle sFootnote = TextStyle(
   fontSize: 12,
