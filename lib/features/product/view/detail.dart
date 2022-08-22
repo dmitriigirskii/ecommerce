@@ -56,6 +56,16 @@ class ProductDetailView extends StatefulWidget {
 class _ProductDetailViewState extends State<ProductDetailView> {
   int _selectedTabbar = 0;
 
+  late String selectColor;
+  late String selectCapacity;
+
+  @override
+  void initState() {
+    selectColor = widget.product.color.first;
+    selectCapacity = widget.product.capacity.first;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final Product product = widget.product;
@@ -489,12 +499,35 @@ class _ProductDetailViewState extends State<ProductDetailView> {
             widget.product.color.length,
             (index) {
               final hexColor = widget.product.color[index].substring(1);
-              return Container(
-                height: 39,
-                width: 39,
-                decoration: BoxDecoration(
-                  color: Color(int.parse("0xFF$hexColor")),
-                  shape: BoxShape.circle,
+              return InkWell(
+                onTap: () => setState(() {
+                  selectColor = widget.product.color[index];
+                }),
+                child: Stack(
+                  children: [
+                    Container(
+                      height: 39,
+                      width: 39,
+                      decoration: BoxDecoration(
+                        color: Color(int.parse("0xFF$hexColor")),
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                    if (widget.product.color[index] == selectColor)
+                      Positioned(
+                        child: Center(
+                          child: SvgPicture.asset(
+                            'assets/icons/check.svg',
+                            width: i14,
+                            height: i14,
+                          ),
+                        ),
+                        top: 0,
+                        right: 0,
+                        bottom: 0,
+                        left: 0,
+                      ),
+                  ],
                 ),
               );
             },
@@ -503,18 +536,29 @@ class _ProductDetailViewState extends State<ProductDetailView> {
         Wrap(
             spacing: m20,
             children: List.generate(widget.product.capacity.length, (index) {
-              return Container(
-                height: 30,
-                padding: const EdgeInsets.symmetric(horizontal: p10),
-                decoration: BoxDecoration(
-                  color: cOrange,
-                  borderRadius: BorderRadius.circular(r10),
-                ),
-                child: Center(
-                  child: Text(
-                    '${widget.product.capacity[index]} GB',
-                    style: sBody.copyWith(
-                        color: cWhite, fontWeight: FontWeight.w700),
+              return InkWell(
+                onTap: () => setState(() {
+                  selectCapacity = widget.product.capacity[index];
+                }),
+                child: Container(
+                  height: 30,
+                  padding: const EdgeInsets.symmetric(horizontal: p10),
+                  decoration: BoxDecoration(
+                    color: widget.product.capacity[index] == selectCapacity
+                        ? cOrange
+                        : cWhite,
+                    borderRadius: BorderRadius.circular(r10),
+                  ),
+                  child: Center(
+                    child: Text(
+                      '${widget.product.capacity[index]} GB',
+                      style: sBody.copyWith(
+                        color: widget.product.capacity[index] == selectCapacity
+                            ? cWhite
+                            : cOrange,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   ),
                 ),
               );
