@@ -1,24 +1,63 @@
+import 'package:ecommerce/features/product/bloc/product_bloc.dart';
+import 'package:ecommerce/features/product/service/product.dart';
 import 'package:ecommerce/ui/styles/colors.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../ui/styles/global.dart';
 import '../../../ui/styles/typography.dart';
+import '../models/product.dart';
 import 'app_bar.dart';
 
-class ProductDetail extends StatefulWidget {
+class ProductDetail extends StatelessWidget {
   const ProductDetail({Key? key}) : super(key: key);
 
   @override
-  State<ProductDetail> createState() => _ProductDetailState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) =>
+          ProductBloc(productService: ProductService())..add(ProductEvent()),
+      child: BlocBuilder<ProductBloc, ProductState>(
+        builder: (context, state) {
+          switch (state.status) {
+            case ProductStatus.failure:
+              return const Center(child: Text('failed to fetch product'));
+
+            case ProductStatus.success:
+              if (state.product == null) {
+                return const Center(child: Text('no product'));
+              }
+              return ProductDetailView(product: state.product!);
+
+            default:
+              return const Center(
+                  child: CupertinoActivityIndicator(radius: i14));
+          }
+        },
+      ),
+    );
+  }
 }
 
-class _ProductDetailState extends State<ProductDetail> {
+class ProductDetailView extends StatefulWidget {
+  const ProductDetailView({Key? key, required this.product}) : super(key: key);
+
+  final Product product;
+
+  @override
+  State<ProductDetailView> createState() => _ProductDetailViewState();
+}
+
+class _ProductDetailViewState extends State<ProductDetailView> {
   int _selectedTabbar = 0;
 
   @override
   Widget build(BuildContext context) {
+    final Product product = widget.product;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -35,14 +74,18 @@ class _ProductDetailState extends State<ProductDetail> {
                     itemBuilder: (context, index) {
                       return Container(
                         decoration: BoxDecoration(
-                          color: Colors.black,
+                          color: cWhite,
                           borderRadius: BorderRadius.circular(r20),
                           boxShadow: boxShadow3,
+                          image: DecorationImage(
+                            image: NetworkImage(product.images[index]),
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                        margin: EdgeInsets.symmetric(horizontal: m15),
+                        margin: const EdgeInsets.symmetric(horizontal: m15),
                       );
                     },
-                    itemCount: 3,
+                    itemCount: product.images.length,
                   ),
                 ),
                 const SizedBox(height: m20),
@@ -57,7 +100,7 @@ class _ProductDetailState extends State<ProductDetail> {
                 ),
                 decoration: BoxDecoration(
                   color: cWhite,
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(r30),
                     topRight: Radius.circular(r30),
                   ),
@@ -74,7 +117,7 @@ class _ProductDetailState extends State<ProductDetail> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Galaxy Note 20 Ultra',
+                              product.title,
                               style: sTitle2.copyWith(
                                 color: cDarkBlue,
                                 fontWeight: FontWeight.w500,
@@ -83,7 +126,7 @@ class _ProductDetailState extends State<ProductDetail> {
                             const SizedBox(height: m5),
                             Transform.translate(
                               offset: const Offset(-5.0, 0.0),
-                              child: buildRating(4),
+                              child: buildRating(product.rating),
                             ),
                           ],
                         ),
@@ -101,7 +144,9 @@ class _ProductDetailState extends State<ProductDetail> {
                             ),
                             child: Center(
                               child: SvgPicture.asset(
-                                'assets/icons/favorite_outline.svg',
+                                product.isFavorites
+                                    ? 'assets/icons/favorite_fill.svg'
+                                    : 'assets/icons/favorite_outline.svg',
                                 color: cWhite,
                                 width: i14,
                                 height: i14,
@@ -157,7 +202,7 @@ class _ProductDetailState extends State<ProductDetail> {
                                           color: _selectedTabbar == 0
                                               ? cOrange
                                               : Colors.transparent,
-                                          borderRadius: BorderRadius.all(
+                                          borderRadius: const BorderRadius.all(
                                             Radius.circular(r10),
                                           ),
                                         ),
@@ -167,7 +212,7 @@ class _ProductDetailState extends State<ProductDetail> {
                                 ),
                               ),
                             ),
-                            SizedBox(width: m20),
+                            const SizedBox(width: m20),
                             Expanded(
                               child: GestureDetector(
                                 onTap: () {
@@ -205,7 +250,7 @@ class _ProductDetailState extends State<ProductDetail> {
                                           color: _selectedTabbar == 1
                                               ? cOrange
                                               : Colors.transparent,
-                                          borderRadius: BorderRadius.all(
+                                          borderRadius: const BorderRadius.all(
                                             Radius.circular(r10),
                                           ),
                                         ),
@@ -215,7 +260,7 @@ class _ProductDetailState extends State<ProductDetail> {
                                 ),
                               ),
                             ),
-                            SizedBox(width: m20),
+                            const SizedBox(width: m20),
                             Expanded(
                               child: GestureDetector(
                                 onTap: () {
@@ -253,7 +298,7 @@ class _ProductDetailState extends State<ProductDetail> {
                                           color: _selectedTabbar == 2
                                               ? cOrange
                                               : Colors.transparent,
-                                          borderRadius: BorderRadius.all(
+                                          borderRadius: const BorderRadius.all(
                                             Radius.circular(r10),
                                           ),
                                         ),
@@ -304,7 +349,7 @@ class _ProductDetailState extends State<ProductDetail> {
             bottom: 0,
             child: Container(
               color: cWhite,
-              padding: EdgeInsets.symmetric(
+              padding: const EdgeInsets.symmetric(
                 horizontal: p30,
                 vertical: p30,
               ),
@@ -317,16 +362,20 @@ class _ProductDetailState extends State<ProductDetail> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Text('Add to Cart',
-                        style: sTitle3.copyWith(
-                          color: cWhite,
-                          fontWeight: FontWeight.w700,
-                        )),
-                    Text('\$1,500.00',
-                        style: sTitle3.copyWith(
-                          color: cWhite,
-                          fontWeight: FontWeight.w700,
-                        )),
+                    Text(
+                      'Add to Cart',
+                      style: sTitle3.copyWith(
+                        color: cWhite,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    Text(
+                      '\$${product.price}',
+                      style: sTitle3.copyWith(
+                        color: cWhite,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -370,7 +419,7 @@ class _ProductDetailState extends State<ProductDetail> {
             ),
             const SizedBox(height: m5),
             Text(
-              'Exynos 990',
+              widget.product.CPU,
               style: sCaption1.copyWith(color: cGray2),
             ),
           ],
@@ -386,7 +435,7 @@ class _ProductDetailState extends State<ProductDetail> {
             ),
             const SizedBox(height: m5),
             Text(
-              '108 + 12 mp',
+              widget.product.camera,
               style: sCaption1.copyWith(color: cGray2),
             ),
           ],
@@ -402,7 +451,7 @@ class _ProductDetailState extends State<ProductDetail> {
             ),
             const SizedBox(height: m5),
             Text(
-              '8 GB',
+              widget.product.ssd,
               style: sCaption1.copyWith(color: cGray2),
             ),
           ],
@@ -413,13 +462,12 @@ class _ProductDetailState extends State<ProductDetail> {
               child: SvgPicture.asset(
                 'assets/icons/card.svg',
                 color: cGray2,
-                // width: i28,
                 height: 22,
               ),
             ),
             const SizedBox(height: m5),
             Text(
-              '256 GB',
+              widget.product.sd,
               style: sCaption1.copyWith(color: cGray2),
             ),
           ],
@@ -432,56 +480,42 @@ class _ProductDetailState extends State<ProductDetail> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Wrap(spacing: m20, children: [
-          Container(
-            height: 39,
-            width: 39,
-            decoration: BoxDecoration(
-              color: cDarkBlue,
-              shape: BoxShape.circle,
-            ),
+        Wrap(
+          spacing: m20,
+          children: List.generate(
+            widget.product.color.length,
+            (index) {
+              final hexColor = widget.product.color[index].substring(1);
+              return Container(
+                height: 39,
+                width: 39,
+                decoration: BoxDecoration(
+                  color: Color(int.parse("0xFF$hexColor")),
+                  shape: BoxShape.circle,
+                ),
+              );
+            },
           ),
-          Container(
-            height: 39,
-            width: 39,
-            decoration: BoxDecoration(
-              color: cDarkBlue,
-              shape: BoxShape.circle,
-            ),
-          ),
-        ]),
-        Wrap(spacing: m20, children: [
-          Container(
-            height: 30,
-            padding: const EdgeInsets.symmetric(horizontal: p10),
-            decoration: BoxDecoration(
-              color: cOrange,
-              borderRadius: BorderRadius.circular(r10),
-            ),
-            child: Center(
-              child: Text(
-                '128 GB',
-                style:
-                    sBody.copyWith(color: cWhite, fontWeight: FontWeight.w700),
-              ),
-            ),
-          ),
-          Container(
-            height: 30,
-            padding: const EdgeInsets.symmetric(horizontal: p10),
-            decoration: BoxDecoration(
-              color: cOrange,
-              borderRadius: BorderRadius.circular(r10),
-            ),
-            child: Center(
-              child: Text(
-                '256 GB',
-                style:
-                    sBody.copyWith(color: cWhite, fontWeight: FontWeight.w700),
-              ),
-            ),
-          ),
-        ]),
+        ),
+        Wrap(
+            spacing: m20,
+            children: List.generate(widget.product.capacity.length, (index) {
+              return Container(
+                height: 30,
+                padding: const EdgeInsets.symmetric(horizontal: p10),
+                decoration: BoxDecoration(
+                  color: cOrange,
+                  borderRadius: BorderRadius.circular(r10),
+                ),
+                child: Center(
+                  child: Text(
+                    '${widget.product.capacity[index]} GB',
+                    style: sBody.copyWith(
+                        color: cWhite, fontWeight: FontWeight.w700),
+                  ),
+                ),
+              );
+            })),
       ],
     );
   }

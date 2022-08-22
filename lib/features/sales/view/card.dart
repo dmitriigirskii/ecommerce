@@ -1,8 +1,8 @@
+import 'package:ecommerce/features/product/view/detail.dart';
 import 'package:ecommerce/ui/styles/colors.dart';
 import 'package:ecommerce/ui/styles/typography.dart';
 import 'package:flutter/material.dart';
 
-import '../../../ui/screens/empty.dart';
 import '../../../ui/styles/global.dart';
 import '../models/sale.dart';
 
@@ -19,7 +19,7 @@ class SalesCard extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const EmptyScreen()),
+            MaterialPageRoute(builder: (context) => const ProductDetail()),
           );
         },
         child: ClipRRect(
