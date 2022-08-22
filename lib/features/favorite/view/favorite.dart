@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-import '../../features/navigation/view/navigation_bar.dart';
+import '../../navigation/view/navigation_bar.dart';
 
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+class FavoriteScreen extends StatelessWidget {
+  const FavoriteScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: Text('Profile'),
+        child: Text('Favorite'),
       ),
       bottomNavigationBar: CustomNavigationBar(),
     );

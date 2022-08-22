@@ -1,6 +1,6 @@
-import 'package:ecommerce/ui/screens/favorite.dart';
+import 'package:ecommerce/features/favorite/view/favorite.dart';
+import 'package:ecommerce/features/profile/view/profile.dart';
 import 'package:ecommerce/ui/screens/main.dart';
-import 'package:ecommerce/ui/screens/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
