@@ -32,31 +32,18 @@ class CustomNavigationBar extends StatelessWidget {
             children: [
               InkWell(
                 onTap: () => tabsCubit.setIndex(0),
-                child: Row(
-                  children: [
-                    SvgPicture.asset('assets/icons/dot.svg'),
-                    const SizedBox(width: m10),
-                    Text(
-                      'Explorer',
-                      style: sSubhead.copyWith(
-                        color: cWhite,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ],
-                ),
+                child: state.index == 0
+                    ? itemExpand('Explorer')
+                    : itemMini('assets/icons/qr.svg'),
               ),
               InkWell(
                 onTap: () => Navigator.pushNamed(context, '/cart'),
                 child: Stack(
                   clipBehavior: Clip.none,
                   children: [
-                    SvgPicture.asset(
-                      'assets/icons/bag.svg',
-                      color: cWhite,
-                      width: i18,
-                      height: i18,
-                    ),
+                    state.index == 1
+                        ? itemExpand('Bag')
+                        : itemMini('assets/icons/bag.svg'),
                     BlocConsumer<CartBloc, CartState>(
                         listener: (context, state) {},
                         builder: (context, state) {
@@ -90,21 +77,15 @@ class CustomNavigationBar extends StatelessWidget {
               ),
               InkWell(
                 onTap: () => tabsCubit.setIndex(2),
-                child: SvgPicture.asset(
-                  'assets/icons/favorite_outline.svg',
-                  color: cWhite,
-                  width: i18,
-                  height: i18,
-                ),
+                child: state.index == 2
+                    ? itemExpand('Favorite')
+                    : itemMini('assets/icons/favorite_outline.svg'),
               ),
               InkWell(
                 onTap: () => tabsCubit.setIndex(3),
-                child: SvgPicture.asset(
-                  'assets/icons/profile.svg',
-                  color: cWhite,
-                  width: i18,
-                  height: i18,
-                ),
+                child: state.index == 3
+                    ? itemExpand('Profile')
+                    : itemMini('assets/icons/profile.svg'),
               ),
             ],
           ),
@@ -113,5 +94,30 @@ class CustomNavigationBar extends StatelessWidget {
 
       return const SizedBox.shrink();
     });
+  }
+
+  Widget itemMini(String asset) {
+    return SvgPicture.asset(
+      asset,
+      color: cWhite,
+      width: i18,
+      height: i18,
+    );
+  }
+
+  Widget itemExpand(String title) {
+    return Row(
+      children: [
+        SvgPicture.asset('assets/icons/dot.svg'),
+        const SizedBox(width: m10),
+        Text(
+          title,
+          style: sSubhead.copyWith(
+            color: cWhite,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ],
+    );
   }
 }
