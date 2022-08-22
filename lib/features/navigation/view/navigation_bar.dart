@@ -1,3 +1,4 @@
+import 'package:ecommerce/features/cart/bloc/cart_bloc.dart';
 import 'package:ecommerce/ui/styles/global.dart';
 import 'package:ecommerce/ui/styles/typography.dart';
 import 'package:flutter/material.dart';
@@ -46,12 +47,45 @@ class CustomNavigationBar extends StatelessWidget {
                 ),
               ),
               InkWell(
-                onTap: () => tabsCubit.setIndex(1),
-                child: SvgPicture.asset(
-                  'assets/icons/bag.svg',
-                  color: cWhite,
-                  width: i18,
-                  height: i18,
+                onTap: () => Navigator.pushNamed(context, '/cart'),
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    SvgPicture.asset(
+                      'assets/icons/bag.svg',
+                      color: cWhite,
+                      width: i18,
+                      height: i18,
+                    ),
+                    BlocConsumer<CartBloc, CartState>(
+                        listener: (context, state) {},
+                        builder: (context, state) {
+                          if (state.cart?.basket.length != null) {
+                            return Positioned(
+                              top: -8,
+                              right: -8,
+                              child: Container(
+                                width: 16,
+                                height: 16,
+                                decoration: const BoxDecoration(
+                                  color: Colors.red,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    state.cart?.basket.length.toString() ?? '0',
+                                    style: sCaption2.copyWith(
+                                        color: cWhite,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                ),
+                              ),
+                            );
+                          }
+
+                          return SizedBox.shrink();
+                        })
+                  ],
                 ),
               ),
               InkWell(

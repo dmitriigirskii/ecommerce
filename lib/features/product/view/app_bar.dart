@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../ui/styles/colors.dart';
 import '../../../ui/styles/global.dart';
 import '../../../ui/styles/typography.dart';
+import '../../cart/bloc/cart_bloc.dart';
 
 class ProductDetailAppBar extends StatelessWidget {
   const ProductDetailAppBar({Key? key}) : super(key: key);
@@ -77,13 +79,47 @@ class ProductDetailAppBar extends StatelessWidget {
                     color: cOrange,
                     borderRadius: BorderRadius.circular(r10),
                   ),
-                  child: Center(
-                    child: SvgPicture.asset(
-                      'assets/icons/bag.svg',
-                      color: cWhite,
-                      width: i14,
-                      height: i14,
-                    ),
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      Center(
+                        child: SvgPicture.asset(
+                          'assets/icons/bag.svg',
+                          color: cWhite,
+                          width: i14,
+                          height: i14,
+                        ),
+                      ),
+                      BlocConsumer<CartBloc, CartState>(
+                          listener: (context, state) {},
+                          builder: (context, state) {
+                            if (state.cart?.basket.length != null) {
+                              return Positioned(
+                                top: -5,
+                                right: -5,
+                                child: Container(
+                                  width: 16,
+                                  height: 16,
+                                  decoration: const BoxDecoration(
+                                    color: Colors.red,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      state.cart?.basket.length.toString() ??
+                                          '0',
+                                      style: sCaption2.copyWith(
+                                          color: cWhite,
+                                          fontWeight: FontWeight.w700),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }
+
+                            return const SizedBox.shrink();
+                          })
+                    ],
                   ),
                 ),
               ),

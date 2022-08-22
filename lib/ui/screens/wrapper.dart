@@ -1,5 +1,3 @@
-import 'package:ecommerce/features/cart/bloc/cart_bloc.dart';
-import 'package:ecommerce/features/cart/service/cart.dart';
 import 'package:ecommerce/ui/screens/favorite.dart';
 import 'package:ecommerce/ui/screens/main.dart';
 import 'package:ecommerce/ui/screens/profile.dart';
@@ -21,24 +19,16 @@ class WrapperScreen extends StatelessWidget {
       const ProfileScreen(),
     ];
 
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (_) => TabsCubit()),
-        BlocProvider(
-          create: (_) => CartBloc(cartService: CartService())..add(CartEvent()),
-        ),
-      ],
-      child: BlocBuilder<TabsCubit, TabsState>(
-        builder: (context, state) {
-          if (state is TabsInitial) {
-            return IndexedStack(
-              index: state.index,
-              children: pages,
-            );
-          }
-          return pages[0];
-        },
-      ),
+    return BlocBuilder<TabsCubit, TabsState>(
+      builder: (context, state) {
+        if (state is TabsInitial) {
+          return IndexedStack(
+            index: state.index,
+            children: pages,
+          );
+        }
+        return pages[0];
+      },
     );
   }
 }
