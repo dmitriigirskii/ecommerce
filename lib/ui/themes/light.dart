@@ -5,4 +5,5 @@ final themeLight = ThemeData(
   fontFamily: 'Mark Pro',
   primaryColor: Colors.black,
   scaffoldBackgroundColor: cLight1,
+  dividerColor: cWhite.withOpacity(0.2),
 );
