@@ -23,6 +23,7 @@ mixin _$Cart {
   String get id => throw _privateConstructorUsedError;
   String get delivery => throw _privateConstructorUsedError;
   int get total => throw _privateConstructorUsedError;
+  int? get count => throw _privateConstructorUsedError;
   List<Basket> get basket => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -34,7 +35,8 @@ mixin _$Cart {
 abstract class $CartCopyWith<$Res> {
   factory $CartCopyWith(Cart value, $Res Function(Cart) then) =
       _$CartCopyWithImpl<$Res>;
-  $Res call({String id, String delivery, int total, List<Basket> basket});
+  $Res call(
+      {String id, String delivery, int total, int? count, List<Basket> basket});
 }
 
 /// @nodoc
@@ -50,6 +52,7 @@ class _$CartCopyWithImpl<$Res> implements $CartCopyWith<$Res> {
     Object? id = freezed,
     Object? delivery = freezed,
     Object? total = freezed,
+    Object? count = freezed,
     Object? basket = freezed,
   }) {
     return _then(_value.copyWith(
@@ -65,6 +68,10 @@ class _$CartCopyWithImpl<$Res> implements $CartCopyWith<$Res> {
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
               as int,
+      count: count == freezed
+          ? _value.count
+          : count // ignore: cast_nullable_to_non_nullable
+              as int?,
       basket: basket == freezed
           ? _value.basket
           : basket // ignore: cast_nullable_to_non_nullable
@@ -78,7 +85,8 @@ abstract class _$$_CartCopyWith<$Res> implements $CartCopyWith<$Res> {
   factory _$$_CartCopyWith(_$_Cart value, $Res Function(_$_Cart) then) =
       __$$_CartCopyWithImpl<$Res>;
   @override
-  $Res call({String id, String delivery, int total, List<Basket> basket});
+  $Res call(
+      {String id, String delivery, int total, int? count, List<Basket> basket});
 }
 
 /// @nodoc
@@ -95,6 +103,7 @@ class __$$_CartCopyWithImpl<$Res> extends _$CartCopyWithImpl<$Res>
     Object? id = freezed,
     Object? delivery = freezed,
     Object? total = freezed,
+    Object? count = freezed,
     Object? basket = freezed,
   }) {
     return _then(_$_Cart(
@@ -110,6 +119,10 @@ class __$$_CartCopyWithImpl<$Res> extends _$CartCopyWithImpl<$Res>
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
               as int,
+      count: count == freezed
+          ? _value.count
+          : count // ignore: cast_nullable_to_non_nullable
+              as int?,
       basket: basket == freezed
           ? _value._basket
           : basket // ignore: cast_nullable_to_non_nullable
@@ -126,6 +139,7 @@ class _$_Cart implements _Cart {
       {required this.id,
       required this.delivery,
       required this.total,
+      required this.count,
       required final List<Basket> basket})
       : _basket = basket;
 
@@ -137,6 +151,8 @@ class _$_Cart implements _Cart {
   final String delivery;
   @override
   final int total;
+  @override
+  final int? count;
   final List<Basket> _basket;
   @override
   List<Basket> get basket {
@@ -146,7 +162,7 @@ class _$_Cart implements _Cart {
 
   @override
   String toString() {
-    return 'Cart(id: $id, delivery: $delivery, total: $total, basket: $basket)';
+    return 'Cart(id: $id, delivery: $delivery, total: $total, count: $count, basket: $basket)';
   }
 
   @override
@@ -157,6 +173,7 @@ class _$_Cart implements _Cart {
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.delivery, delivery) &&
             const DeepCollectionEquality().equals(other.total, total) &&
+            const DeepCollectionEquality().equals(other.count, count) &&
             const DeepCollectionEquality().equals(other._basket, _basket));
   }
 
@@ -167,6 +184,7 @@ class _$_Cart implements _Cart {
       const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(delivery),
       const DeepCollectionEquality().hash(total),
+      const DeepCollectionEquality().hash(count),
       const DeepCollectionEquality().hash(_basket));
 
   @JsonKey(ignore: true)
@@ -187,6 +205,7 @@ abstract class _Cart implements Cart {
       {required final String id,
       required final String delivery,
       required final int total,
+      required final int? count,
       required final List<Basket> basket}) = _$_Cart;
 
   factory _Cart.fromJson(Map<String, dynamic> json) = _$_Cart.fromJson;
@@ -197,6 +216,8 @@ abstract class _Cart implements Cart {
   String get delivery;
   @override
   int get total;
+  @override
+  int? get count;
   @override
   List<Basket> get basket;
   @override

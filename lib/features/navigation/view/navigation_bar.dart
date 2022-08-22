@@ -61,7 +61,7 @@ class CustomNavigationBar extends StatelessWidget {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    state.cart?.basket.length.toString() ?? '0',
+                                    state.cart?.count.toString() ?? '0',
                                     style: sCaption2.copyWith(
                                         color: cWhite,
                                         fontWeight: FontWeight.w700),

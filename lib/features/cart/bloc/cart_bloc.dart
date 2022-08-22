@@ -14,6 +14,8 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   CartBloc({required this.cartService}) : super(const CartState()) {
     on<CartEventLoad>(_onFindOne);
     on<CartEventRemove>(_onRemoveOne);
+    on<CartEventMinus>(_onMinusOne);
+    on<CartEventPlus>(_onPlusOne);
   }
 
   Future<void> _onFindOne(
@@ -31,6 +33,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       emit(state.copyWith(
         cart: state.cart?.copyWith(
           total: _totalPrice(cart),
+          count: _totalCount(state.cart!),
         ),
       ));
     } catch (_) {
@@ -56,6 +59,87 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         emit(state.copyWith(
           cart: state.cart?.copyWith(
             total: _totalPrice(state.cart!),
+            count: _totalCount(state.cart!),
+          ),
+        ));
+      }
+    } catch (_) {
+      emit(state.copyWith(status: CartStatus.failure));
+    }
+  }
+
+  Future<void> _onMinusOne(
+    CartEventMinus event,
+    Emitter<CartState> emit,
+  ) async {
+    try {
+      if (_findOne(state.cart!, event.basket)) {
+        final List<Basket> baskets = [...state.cart!.basket];
+        Basket currentBasket = baskets.firstWhere(
+          (element) => element.id == event.basket.id,
+        );
+
+        if (currentBasket.quantity > 1) {
+          state.cart!.basket.asMap().map((i, element) {
+            if (element.id == currentBasket.id) {
+              baskets[i] = currentBasket.copyWith(
+                quantity: currentBasket.quantity - 1,
+              );
+            }
+            return MapEntry(i, element);
+          });
+        } else {
+          baskets.removeWhere((element) => element.id == event.basket.id);
+        }
+
+        emit(state.copyWith(
+          cart: state.cart!.copyWith(
+            basket: baskets,
+          ),
+        ));
+
+        emit(state.copyWith(
+          cart: state.cart?.copyWith(
+            total: _totalPrice(state.cart!),
+            count: _totalCount(state.cart!),
+          ),
+        ));
+      }
+    } catch (_) {
+      emit(state.copyWith(status: CartStatus.failure));
+    }
+  }
+
+  Future<void> _onPlusOne(
+    CartEventPlus event,
+    Emitter<CartState> emit,
+  ) async {
+    try {
+      if (_findOne(state.cart!, event.basket)) {
+        final List<Basket> baskets = [...state.cart!.basket];
+        Basket currentBasket = baskets.firstWhere(
+          (element) => element.id == event.basket.id,
+        );
+
+        state.cart!.basket.asMap().map((i, element) {
+          if (element.id == currentBasket.id) {
+            baskets[i] = currentBasket.copyWith(
+              quantity: currentBasket.quantity + 1,
+            );
+          }
+          return MapEntry(i, element);
+        });
+
+        emit(state.copyWith(
+          cart: state.cart!.copyWith(
+            basket: baskets,
+          ),
+        ));
+
+        emit(state.copyWith(
+          cart: state.cart?.copyWith(
+            total: _totalPrice(state.cart!),
+            count: _totalCount(state.cart!),
           ),
         ));
       }
@@ -73,6 +157,17 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     }
 
     return total;
+  }
+
+  // Total Count
+  int _totalCount(Cart cart) {
+    int count = 0;
+
+    for (var element in cart.basket) {
+      count += element.quantity;
+    }
+
+    return count;
   }
 
   // Find product in cart

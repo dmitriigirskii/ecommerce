@@ -12,3 +12,15 @@ class CartEventRemove extends CartEvent {
 
   CartEventRemove({required this.basket});
 }
+
+class CartEventMinus extends CartEvent {
+  final Basket basket;
+
+  CartEventMinus({required this.basket});
+}
+
+class CartEventPlus extends CartEvent {
+  final Basket basket;
+
+  CartEventPlus({required this.basket});
+}

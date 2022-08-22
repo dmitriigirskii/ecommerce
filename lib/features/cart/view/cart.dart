@@ -164,11 +164,14 @@ class CartScreenView extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Text(
-                          'Checkout',
-                          style: sTitle3.copyWith(
-                            color: cWhite,
-                            fontWeight: FontWeight.w700,
+                        GestureDetector(
+                          onTap: () => Navigator.pushNamed(context, '/empty'),
+                          child: Text(
+                            'Checkout',
+                            style: sTitle3.copyWith(
+                              color: cWhite,
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                         ),
                       ],

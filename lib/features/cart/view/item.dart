@@ -58,7 +58,6 @@ class CartItem extends StatelessWidget {
         Row(
           children: [
             Container(
-              height: 68,
               width: 26,
               decoration: const BoxDecoration(
                 color: Color(0xFF282843),
@@ -69,11 +68,21 @@ class CartItem extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Center(
-                    child: SvgPicture.asset(
-                      'assets/icons/minus.svg',
-                      color: cWhite,
-                      height: 2,
+                  InkWell(
+                    onTap: () {
+                      context
+                          .read<CartBloc>()
+                          .add(CartEventMinus(basket: item));
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Center(
+                        child: SvgPicture.asset(
+                          'assets/icons/minus.svg',
+                          color: cWhite,
+                          height: 2,
+                        ),
+                      ),
                     ),
                   ),
                   Text(
@@ -83,12 +92,20 @@ class CartItem extends StatelessWidget {
                       fontWeight: FontWeight.w700,
                     ),
                   ),
-                  Center(
-                    child: SvgPicture.asset(
-                      'assets/icons/plus.svg',
-                      color: cWhite,
-                      width: 9,
-                      height: 9,
+                  InkWell(
+                    onTap: () {
+                      context.read<CartBloc>().add(CartEventPlus(basket: item));
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Center(
+                        child: SvgPicture.asset(
+                          'assets/icons/plus.svg',
+                          color: cWhite,
+                          width: 9,
+                          height: 9,
+                        ),
+                      ),
                     ),
                   ),
                 ],

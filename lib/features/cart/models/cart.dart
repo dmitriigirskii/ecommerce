@@ -12,6 +12,7 @@ class Cart with _$Cart {
     required String id,
     required String delivery,
     required int total,
+    required int? count,
     required List<Basket> basket,
   }) = _Cart;
 
