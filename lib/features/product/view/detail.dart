@@ -129,7 +129,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
             ]),
           ),
           SliverFillRemaining(
-            hasScrollBody: false,
+            hasScrollBody: true,
             child: Container(
               padding: const EdgeInsets.symmetric(
                 horizontal: p30,
