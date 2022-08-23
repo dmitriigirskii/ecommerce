@@ -61,6 +61,11 @@ class _ProductDetailViewState extends State<ProductDetailView> {
   late String selectColor;
   late String selectCapacity;
 
+  final PageController _pageController = PageController(
+    initialPage: 0,
+    viewportFraction: 0.8,
+  );
+
   @override
   void initState() {
     selectColor = widget.product.color.first;
@@ -83,19 +88,38 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                 height: 335,
                 child: PageView.builder(
                   clipBehavior: Clip.none,
-                  controller: PageController(viewportFraction: 0.8),
+                  controller: _pageController,
                   itemBuilder: (context, index) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        color: cWhite,
-                        borderRadius: BorderRadius.circular(r20),
-                        boxShadow: boxShadow3,
-                        image: DecorationImage(
-                          image: NetworkImage(product.images[index]),
-                          fit: BoxFit.cover,
+                    return AnimatedBuilder(
+                      animation: _pageController,
+                      builder: (BuildContext context, Widget? child) {
+                        double value = 1;
+                        if (_pageController.position.haveDimensions) {
+                          value = _pageController.page! - index;
+                          value =
+                              (1 - (value.abs() * 0.3) + 0.05).clamp(0.0, 1.0);
+                        }
+
+                        return Center(
+                          child: SizedBox(
+                            height: Curves.easeInOut.transform(value) * 335.0,
+                            // width: Curves.easeInOut.transform(value) * 335.0,
+                            child: child,
+                          ),
+                        );
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: cWhite,
+                          borderRadius: BorderRadius.circular(r20),
+                          boxShadow: boxShadow3,
+                          image: DecorationImage(
+                            image: NetworkImage(product.images[index]),
+                            fit: BoxFit.cover,
+                          ),
                         ),
+                        margin: const EdgeInsets.symmetric(horizontal: m15),
                       ),
-                      margin: const EdgeInsets.symmetric(horizontal: m15),
                     );
                   },
                   itemCount: product.images.length,

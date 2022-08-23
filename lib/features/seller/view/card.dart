@@ -32,6 +32,13 @@ class SellerCard extends StatelessWidget {
                 Image.network(
                   seller.picture,
                   height: 168,
+                  errorBuilder: (context, error, stackTrace) {
+                    return const Padding(
+                      padding: EdgeInsets.symmetric(vertical: p30),
+                      child: Text('Image\n not found',
+                          textAlign: TextAlign.center),
+                    );
+                  },
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
