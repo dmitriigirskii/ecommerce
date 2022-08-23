@@ -1,4 +1,4 @@
-![cover](https://i.ibb.co/yFRDWnG/ecommerce.png)
+![cover](https://camo.githubusercontent.com/495aab112872b069b446c6eeba824612d26d2c7654b2d603ce464d77a8a800f8/68747470733a2f2f692e6962622e636f2f79465244576e472f65636f6d6d657263652e706e67)
 # Developed on iPhone and Android using BLoC and Cubit.
 
 1. Loading screen
