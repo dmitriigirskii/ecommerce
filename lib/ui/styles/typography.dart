@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 const TextStyle sLargeTitle = TextStyle(
   fontSize: 35,
 );
+const TextStyle sLargeTitle2 = TextStyle(
+  fontSize: 30,
+);
 const TextStyle sTitle1 = TextStyle(
   fontSize: 25,
   fontWeight: FontWeight.w700,
