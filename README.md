@@ -1,16 +1,18 @@
-# ecommerce
+![cover](https://i.ibb.co/yFRDWnG/ecommerce.png)
+# Developed on iPhone and Android using BLoC and Cubit.
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. Loading screen
+2. Home screen
+3. Screen product
+4. Shopping cart
+5. Categories
+6. Bottom navigation
+7. Status about the quantity of goods
+8. Downloading product data
+9. Loading cart data
+10. Loading product data
+11. Adding goods to the cart
+12. Removing an item from the cart
+13. Recalculations of the total cost
+14. Total number of items in the cart
+15. Loading screen animation
